@@ -1,0 +1,156 @@
+{% extends 'players/base.html' %}
+
+{% block title %}{{ player.name }} - CBA球员数据统计{% endblock %}
+
+{% block content %}
+<div class="row">
+  <!-- 球员基本信息 -->
+  <div class="col-md-4">
+    <div class="card mb-4">
+      {% if player.image %}
+      <img src="{{ player.image.url }}" class="card-img-top" alt="{{ player.name }}" style="max-height: 300px; object-fit: cover;">
+      {% endif %}
+      <div class="card-body">
+        <h3 class="card-title">{{ player.name }}</h3>
+        <p class="text-muted">{{ player.english_name }}</p>
+        <hr>
+        <p><strong>球队：</strong>{{ player.team }}</p>
+        <p><strong>号码：</strong>{{ player.number }}</p>
+        <p><strong>位置：</strong>{{ player.position }}</p>
+        <p><strong>身高：</strong>{{ player.height }}米</p>
+        <p><strong>体重：</strong>{{ player.weight }}公斤</p>
+        <p><strong>出生日期：</strong>{{ player.birth_date }}</p>
+        <p><strong>国籍：</strong>{{ player.nationality }}</p>
+        <p><strong>球龄：</strong>{{ player.experience }}年</p>
+        {% if player.draft_year %}
+        <p><strong>选秀年份：</strong>{{ player.draft_year }}</p>
+        <p><strong>选秀顺位：</strong>{{ player.draft_position }}</p>
+        {% endif %}
+        {% if player.college %}
+        <p><strong>毕业院校：</strong>{{ player.college }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- 球员数据统计 -->
+  <div class="col-md-8">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4 class="mb-0">赛季数据</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>基础数据</h5>
+            <table class="table">
+              <tr>
+                <td>出场次数</td>
+                <td>{{ player.games_played }}</td>
+              </tr>
+              <tr>
+                <td>首发次数</td>
+                <td>{{ player.games_started }}</td>
+              </tr>
+              <tr>
+                <td>场均出场时间</td>
+                <td>{{ player.minutes_per_game }}分钟</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h5>得分数据</h5>
+            <table class="table">
+              <tr>
+                <td>场均得分</td>
+                <td>{{ player.points_per_game }}</td>
+              </tr>
+              <tr>
+                <td>投篮命中率</td>
+                <td>{{ player.field_goal_percentage|floatformat:1 }}%</td>
+              </tr>
+              <tr>
+                <td>三分命中率</td>
+                <td>{{ player.three_point_percentage|floatformat:1 }}%</td>
+              </tr>
+              <tr>
+                <td>罚球命中率</td>
+                <td>{{ player.free_throw_percentage|floatformat:1 }}%</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4 class="mb-0">其他数据</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>防守数据</h5>
+            <table class="table">
+              <tr>
+                <td>场均篮板</td>
+                <td>{{ player.rebounds_per_game }}</td>
+              </tr>
+              <tr>
+                <td>场均抢断</td>
+                <td>{{ player.steals_per_game }}</td>
+              </tr>
+              <tr>
+                <td>场均盖帽</td>
+                <td>{{ player.blocks_per_game }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h5>组织数据</h5>
+            <table class="table">
+              <tr>
+                <td>场均助攻</td>
+                <td>{{ player.assists_per_game }}</td>
+              </tr>
+              <tr>
+                <td>场均失误</td>
+                <td>{{ player.turnovers_per_game }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">数据分析</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>效率值</h5>
+            <p>综合效率值：{{ stats.efficiency|floatformat:1 }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>特殊表现</h5>
+            {% if stats.double_double_potential %}
+            <p class="text-success">具备两双潜力</p>
+            {% else %}
+            <p class="text-muted">暂无两双表现</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 返回按钮 -->
+<div class="row mt-4">
+  <div class="col">
+    <a href="{% url 'players:player_list' %}" class="btn btn-secondary">返回列表</a>
+  </div>
+</div>
+{% endblock %}

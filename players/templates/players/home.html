@@ -1,0 +1,97 @@
+{% extends 'players/base.html' %}
+
+{% block title %}CBA球员数据统计 - 首页{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- 欢迎区域 -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 mb-3">CBA球员数据统计</h1>
+        <p class="lead text-muted">探索中国篮球职业联赛球员的详细数据</p>
+    </div>
+
+    <!-- 功能卡片区域 -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h3 class="card-title">球员列表</h3>
+                    <p class="card-text">浏览所有CBA球员的详细信息</p>
+                    <a href="{% url 'players:player_list' %}" class="btn btn-primary">查看球员</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h3 class="card-title">数据统计</h3>
+                    <p class="card-text">查看球员的详细统计数据</p>
+                    <a href="{% url 'players:player_list' %}" class="btn btn-primary">查看统计</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h3 class="card-title">球队信息</h3>
+                    <p class="card-text">了解各支球队的详细信息</p>
+                    <a href="{% url 'players:player_list' %}" class="btn btn-primary">查看球队</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 特色功能区域 -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">数据可视化</h4>
+                    <p class="card-text">通过图表直观展示球员数据，包括：</p>
+                    <ul class="list-unstyled">
+                        <li>✓ 得分趋势分析</li>
+                        <li>✓ 效率值对比</li>
+                        <li>✓ 球队数据分布</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">实时更新</h4>
+                    <p class="card-text">数据定期更新，确保信息及时准确：</p>
+                    <ul class="list-unstyled">
+                        <li>✓ 每日数据同步</li>
+                        <li>✓ 赛季数据统计</li>
+                        <li>✓ 历史数据对比</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最新动态区域 -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">最新动态</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>数据更新</h5>
+                    <p class="text-muted">最新数据更新时间：{{ current_time|date:"Y-m-d H:i" }}</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>球员总数</h5>
+                    <p class="text-muted">当前收录球员：{{ total_players }} 名</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>数据来源</h5>
+                    <p class="text-muted">官方数据统计</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
